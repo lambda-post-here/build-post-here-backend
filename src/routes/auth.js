@@ -19,17 +19,15 @@ router.get('/', (req, res) => {
 router.post('/register', async (req, res) => {
   let creds = req.body;
   let { username, password } = creds;
-  const token = generateToken(creds);
 
   if (!username || !password) {
     return res.status(400).json({
       message: `Both a username and a password are required to register`
     });
   } else {
-    const hash = bcrypt.hashSync(creds.password, 5);
-    creds.password = hash;
-
     try {
+      const hash = bcrypt.hashSync(creds.password, 5);
+      creds.password = hash;
       const user = await aModel.add(creds);
       const token = generateToken(user);
       res.status(201).json({ username, token });
