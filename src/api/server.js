@@ -9,7 +9,7 @@ server.use(helmet());
 server.use(express.json());
 
 server.get('/', (req, res) => {
-  res.send('API ONLINE');
+  res.status(200).json('API ONLINE');
 });
 
 server.use('/api/auth', authRouter);
