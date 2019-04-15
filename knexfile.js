@@ -7,7 +7,7 @@ const localPg = {
   password: 'hired'
 };
 
-const productionDbCOnnection = preocess.env.DATABASE_URL || localPg;
+const productionDbConnection = process.env.DATABASE_URL || localPg;
 
 module.exports = {
   development: {
