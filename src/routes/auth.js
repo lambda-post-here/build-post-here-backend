@@ -28,17 +28,17 @@ router.post('/register', async (req, res) => {
   } else {
     const hash = bcrypt.hashSync(creds.password, 5);
     creds.password = hash;
-  }
-  try {
-    const user = await aModel.add(creds);
-    console.log(user);
-    const token = generateToken(user);
-    res.status(201).json({ username, token });
-  } catch (error) {
-    res.status(500).json({
-      error: `Error while registering user: `,
-      error
-    });
+
+    try {
+      const user = await aModel.add(creds);
+      const token = generateToken(user);
+      res.status(201).json({ username, token });
+    } catch (error) {
+      res.status(500).json({
+        error: `Error while registering user: `,
+        error
+      });
+    }
   }
 });
 
