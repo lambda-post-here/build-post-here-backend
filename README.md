@@ -4,6 +4,8 @@ Backend Repo for Backend Engineer.
 
 # ROUTES:
 
+## BASE URL: `https://post-here.herokuapp.com/`
+
 ## `POST /api/auth/register`
 
 ### Inputs:
