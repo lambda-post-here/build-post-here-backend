@@ -1,5 +1,14 @@
 // Update with your config settings.
 
+const localPg = {
+  host: 'localhost',
+  database: 'auth',
+  user: 'test',
+  password: 'hired'
+};
+
+const productionDbCOnnection = preocess.env.DATABASE_URL || localPg;
+
 module.exports = {
   development: {
     client: 'sqlite3',
@@ -28,20 +37,14 @@ module.exports = {
       directory: './src/database/seeds'
     }
   },
-
   production: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
+    client: 'pg',
+    connection: productionDbConnection,
     migrations: {
-      tableName: 'knex_migrations'
+      directory: './src/database/migrations'
+    },
+    seeds: {
+      directory: './src/database/seeds'
     }
   }
 };
