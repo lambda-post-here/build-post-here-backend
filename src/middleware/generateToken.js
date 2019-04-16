@@ -1,10 +1,12 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-module.exports = function generateToken(user) {
+module.exports = function generateToken(username, id) {
+  // console.log(username);
+  // console.log(id);
   const payload = {
-    subject: user.id,
-    username: user.username
+    subject: id,
+    username: username
   };
 
   const options = {
