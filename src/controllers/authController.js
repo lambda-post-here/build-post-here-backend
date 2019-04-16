@@ -1,7 +1,8 @@
 module.exports = {
   loginUser,
   registerUser,
-  getUsers
+  getUsers,
+  updatePassword
 };
 
 const Users = require('../database/helpers/auth-helpers');
@@ -54,5 +55,48 @@ async function registerUser(req, res) {
     return res.status(201).send({ message, token, id });
   } catch (error) {
     return await res.status(500).json({ error });
+  }
+}
+
+async function updatePassword(req, res) {
+  const { id } = req.body;
+  let { newPassword } = req.body;
+
+  if (newPassword) {
+    const tokenId = req.decoded.subject;
+
+    if (id === tokenId) {
+      try {
+        const currentUser = await Users.getById(id);
+        if (currentUser) {
+          newPassword = bcrypt.hashSync(newPassword, 10);
+
+          const updatedUser = await Users.update(id, newPassword);
+
+          if (updatedUser) {
+            res
+              .status(200)
+              .json({ message: 'Password was successfully updated.' });
+          } else {
+            res.status(500).json({
+              message: `An error occurred while updating the password.`
+            });
+          }
+        } else {
+          res.status(404).json({
+            message: 'Requested user could not be found in database.'
+          });
+        }
+      } catch (error) {
+        res.status(500).json({
+          message: 'An error occurred while updating the password',
+          error
+        });
+      }
+    } else {
+      res.status(403).json({ message: ' You cannot perform this operation.' });
+    }
+  } else {
+    res.status(400).json({ message: 'Password was not supplied.' });
   }
 }
