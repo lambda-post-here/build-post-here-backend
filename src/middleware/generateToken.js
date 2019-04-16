@@ -9,9 +9,11 @@ module.exports = function generateToken(username, id) {
     username: username
   };
 
+  const secret = 'my secret';
+
   const options = {
     expiresIn: '1d'
   };
 
-  return jwt.sign(payload, process.env.JWT_SECRET, options);
+  return jwt.sign(payload, secret, options);
 };
