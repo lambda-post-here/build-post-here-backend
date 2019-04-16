@@ -19,11 +19,15 @@ async function loginUser(req, res) {
     return await res.status(404).json({ message: 'Login failed.' });
   }
   try {
-    let user = await Users.getByUsername(username);
+    let user = await Users.findBy(username);
+    let { id } = user;
+
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = await generateToken(user);
 
-      return await res.status(200).json({ message: 'Login Successful', token });
+      return await res
+        .status(200)
+        .json({ message: 'Login Successful', token, id });
     } else {
       return await res.status(404).json({ message: 'User not found.' });
     }
