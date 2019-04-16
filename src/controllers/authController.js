@@ -24,7 +24,7 @@ async function loginUser(req, res) {
     let { id } = user;
 
     if (user && bcrypt.compareSync(password, user.password)) {
-      const token = await generateToken(user);
+      const token = await generateToken(username, id);
 
       return await res
         .status(200)
@@ -61,6 +61,7 @@ async function registerUser(req, res) {
 async function updatePassword(req, res) {
   const { id } = req.body;
   let { newPassword } = req.body;
+  console.log(newPassword);
 
   if (newPassword) {
     const tokenId = req.decoded.subject;
@@ -72,14 +73,14 @@ async function updatePassword(req, res) {
           newPassword = bcrypt.hashSync(newPassword, 10);
 
           const updatedUser = await Users.update(id, newPassword);
-
+          console.log(updatedUser);
           if (updatedUser) {
             res
               .status(200)
               .json({ message: 'Password was successfully updated.' });
           } else {
             res.status(500).json({
-              message: `An error occurred while updating the password.`
+              message: 'An error occurred while updating the password.'
             });
           }
         } else {
