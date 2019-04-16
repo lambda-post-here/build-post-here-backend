@@ -22,7 +22,13 @@ Backend Repo for Backend Engineer.
 
 ### Success Outputs
 
-- `msg`(string) -> Contains a success message string, contains a token to be stored by the front-end
+```js
+{
+  "message": "Registration Successful",
+  "token": "a token would appear here",
+  "id": 1
+}
+```
 
 ### Failure Outputs
 
@@ -44,7 +50,13 @@ Backend Repo for Backend Engineer.
 
 ### Success Outputs
 
-- `msg`(string) -> Contains a success message string
+```js
+{
+  "message": "Login Successful",
+  "token": "a token would appear here",
+  "id": 1
+}
+```
 
 ### Failure Outputs
 
