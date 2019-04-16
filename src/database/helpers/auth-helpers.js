@@ -6,18 +6,24 @@ module.exports = {
   insert,
   getById,
   update,
-  remove
+  remove,
+  findBy
 };
 
-async function get() {
-  return await db.select('id', 'username').from('users');
+function get() {
+  return db('users').select('id', 'username', 'password');
 }
 
 async function getByUsername(username) {
-  return await db
-    .select('*')
-    .from('users')
-    .where({ username })
+  return await db('users')
+    .select('id', 'username')
+    .where({ username });
+}
+
+function findBy(username) {
+  return db('users')
+    .select('id', 'username', 'password')
+    .where({ username: username })
     .first();
 }
 
