@@ -2,6 +2,7 @@ const db = require('../dbConfig');
 
 module.exports = {
   get,
+  getByUsername,
   insert,
   getById,
   update,
@@ -12,10 +13,22 @@ async function get() {
   return await db.select('id', 'username').from('users');
 }
 
+async function getByUsername(username) {
+  return await db
+    .select('*')
+    .from('users')
+    .where({ username })
+    .first();
+}
+
 async function insert(user) {
   return await db('users')
-    .insert(user)
-    .then(res => res[0]);
+    .insert({ username: user.username, password: user.password })
+    .then(response => {
+      return {
+        id: response[0]
+      };
+    });
 }
 async function getById(id) {
   return await db
