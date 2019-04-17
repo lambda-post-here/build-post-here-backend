@@ -1,28 +1,42 @@
+const fetch = require('node-fetch');
 module.exports = {
-  // submitPost,
-  getSuggestions
+  userPost,
+  testPost
 };
-const request = require('request');
-
-// const url = 'https://post-here.herokuapp.com/api/auth';
-
-// async function submitPost(req, res) {
-//   request(url, (error, response, body) => {
-//     const json = JSON.parse(body);
-//     const newArr = json.map(item => item);
-//     res.status(200).json(newArr);
-//   });
-// }
 
 const testObj = { rec_1: 'r/games', rec_2: 'r/movies', rec_3: 'r/tifu' };
 
-async function getSuggestions(req, res) {
-  const suggestions = testObj;
+async function userPost(req, res) {
+  const { title, body } = req.body;
+  if (!title || !body) {
+    return await res
+      .status(404)
+      .json({ message: 'You need a title and a post' });
+  }
   try {
-    return await res.status(200).json(suggestions);
+    res.status(200).send({ testObj, title, body });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ error: 'Error retrieving suggestions', error });
+    return await res.status(500).json({ error });
   }
 }
+
+async function testPost(req, res) {
+  res.status(200).json(testObj);
+}
+
+// const url = 'http://localhost:5000/api/post';
+// const postData = async url => {
+//   try {
+//     const response = await fetch(url, {
+//       method: 'post',
+//       body: JSON.stringify(body),
+//       headers: { 'Content-Type': 'application/json' }
+//     })
+//       .then(res => res.json(response))
+//       .then(json => console.log(json));
+//   } catch (error) {
+//     return await res
+//       .status(500)
+//       .json({ error: 'Error retrieving suggestions', error });
+//   }
+// };
