@@ -8,7 +8,9 @@ exports.up = function(knex, Promise) {
     posts
       .integer('userId')
       .references('id')
-      .inTable('users');
+      .inTable('users')
+      .onDelete('CASCADE')
+      .index();
   });
 };
 exports.down = function(knex, Promise) {
