@@ -43,10 +43,10 @@ async function getById(id) {
     .where({ id })
     .first();
 }
-async function update(id, password) {
+async function update(id, username, password) {
   return await db("users")
     .where({ id })
-    .update({ password: password });
+    .update({ username: username, password: password });
 }
 async function remove(id) {
   return await db("users")

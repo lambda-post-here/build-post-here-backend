@@ -59,59 +59,16 @@ async function registerUser(req, res) {
   }
 }
 
-// async function updatePassword(req, res) {
-// const { id } = req.body;
-// let { newPassword } = req.body;
-// console.log(newPassword);
-
-// if (newPassword) {
-//   const tokenId = req.decoded.subject;
-
-//     if (id === tokenId) {
-//       try {
-//         const currentUser = await Users.getById(id);
-//         if (currentUser) {
-//           newPassword = bcrypt.hashSync(newPassword, 10);
-
-//           const updatedUser = await Users.update(id, newPassword);
-//           console.log(updatedUser);
-//           if (updatedUser) {
-//             res
-//               .status(200)
-//               .json({ message: 'Password was successfully updated.' });
-//           } else {
-//             res.status(500).json({
-//               message: 'An error occurred while updating the password.'
-//             });
-//           }
-//         } else {
-//           res.status(404).json({
-//             message: 'Requested user could not be found in database.'
-//           });
-//         }
-//       } catch (error) {
-//         res.status(500).json({
-//           message: 'An error occurred while updating the password',
-//           error
-//         });
-//       }
-//     } else {
-//       res.status(403).json({ message: ' You cannot perform this operation.' });
-//     }
-//   } else {
-//     res.status(400).json({ message: 'Password was not supplied.' });
-//   }
-// }
-
 async function updatePassword(req, res) {
   const userID = req.decoded.subject;
+  const username = req.decoded.username;
   let { password } = req.body;
 
   try {
     const hashedPassword = bcrypt.hashSync(password, 10);
     password = hashedPassword;
 
-    await Users.update(userID, password);
+    await Users.update(userID, username, password);
     res.status(200).json({
       message: "Password was successfully updated"
     });
