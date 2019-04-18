@@ -8,7 +8,7 @@ exports.up = function(knex, Promise) {
     posts
       .integer('userId')
       .references('id')
-      .inTable('auth');
+      .inTable('users');
   });
 };
 exports.down = function(knex, Promise) {

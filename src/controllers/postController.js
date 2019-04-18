@@ -7,12 +7,6 @@ module.exports = {
 const url =
   'http://buildweekredditpredict-env.zfm3nfznwp.us-east-1.elasticbeanstalk.com/';
 
-const testPost = {
-  title: 'new title for testing',
-  body: 'This is my post to be analyzed',
-  image: 'no image'
-};
-
 async function userPost(req, res) {
   const newPost = req.body;
   const userID = req.decoded.subject;
