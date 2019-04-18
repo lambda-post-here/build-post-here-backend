@@ -12,12 +12,13 @@ const testPost = {
 };
 
 async function userPost(req, res) {
+  const newPost = req.body;
   const { title, body, image } = req.body;
   if (!title) {
     return await res.status(404).json({ message: 'You need a title' });
   } else {
     try {
-      const response = await postData(url);
+      const response = await postData(url, newPost);
       console.log(response);
       res.status(200).send({ response, title, body, image });
     } catch (error) {
@@ -25,11 +26,11 @@ async function userPost(req, res) {
     }
   }
 }
-const postData = async url => {
+const postData = async (url, newPost) => {
   return new Promise((resolve, reject) => {
     fetch(url, {
       method: 'post',
-      body: JSON.stringify(testPost),
+      body: JSON.stringify(newPost),
       headers: { 'Content-Type': 'application/json' }
     })
       .then(res => res.json())
