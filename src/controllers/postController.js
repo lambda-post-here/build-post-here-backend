@@ -1,4 +1,6 @@
 const fetch = require('node-fetch');
+const Posts = require('../database/helpers/post-helpers');
+
 module.exports = {
   userPost
 };
@@ -13,11 +15,14 @@ const testPost = {
 
 async function userPost(req, res) {
   const newPost = req.body;
+  const userID = req.decoded.subject;
   const { title, body, image } = req.body;
   if (!title) {
     return await res.status(404).json({ message: 'You need a title' });
   } else {
     try {
+      Posts.insert(newPost, userID);
+
       const response = await postData(url, newPost);
       console.log(response);
       res.status(200).send({ response, title, body, image });
