@@ -7,6 +7,7 @@ router.route('/register').post(authController.registerUser);
 router
   .route('/users')
   .get(authController.getUsers)
-  .patch(authenticate, authController.updatePassword);
+  .patch(authenticate, authController.updatePassword)
+  .delete(authenticate, authController.deleteUser);
 
 module.exports = router;
