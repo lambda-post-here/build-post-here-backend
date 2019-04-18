@@ -49,7 +49,7 @@ async function update(id, password) {
     .update(password);
 }
 async function remove(id) {
-  return await db('resources')
+  return await db('users')
     .where({ id })
     .del();
 }

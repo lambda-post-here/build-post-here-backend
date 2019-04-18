@@ -2,7 +2,8 @@ module.exports = {
   loginUser,
   registerUser,
   getUsers,
-  updatePassword
+  updatePassword,
+  deleteUser
 };
 
 const Users = require('../database/helpers/auth-helpers');
@@ -99,5 +100,17 @@ async function updatePassword(req, res) {
     }
   } else {
     res.status(400).json({ message: 'Password was not supplied.' });
+  }
+}
+async function deleteUser(req, res) {
+  try {
+    const userID = req.decoded.subject;
+    console.log(userID);
+    // const user = await Users.getById(userID);
+    const result = await Users.remove(userID);
+    // if (user === 0 || result === 0) throw err;
+    return await res.status(200).json({ message: 'user deleted' });
+  } catch (error) {
+    return await res.status(404).json({ message: 'user not found' });
   }
 }
