@@ -22,19 +22,11 @@ Backend Repo for Backend Engineer.
 
 ### Success Outputs
 
-```js
+```json
 {
   "message": "Registration Successful",
   "token": "a token would appear here",
   "id": 1
-}
-```
-
-```json
-{
-  "message": "Registration Successful",
-  "token": "token here",
-  "id": 95
 }
 ```
 
@@ -70,23 +62,55 @@ Backend Repo for Backend Engineer.
 
 - `msg`(string) ->
 
-## `GET /api/post`
+## `POST /api/post`
+
+### Input
+
+```json
+{
+  "title": "This is a title",
+  "body": "This is the post",
+  "image": "This is an image url"
+}
+```
 
 ### Success Outputs
 
 ```json
 {
-  "rec_1": "r/games",
-  "rec_2": "r/movies",
-  "rec_3": "r/tifu"
+  "response": [
+    {
+      "rec": "dankmemes",
+      "score": 0.36160451388367243
+    },
+    {
+      "rec": "teenagers",
+      "score": 0.19633690505618595
+    },
+    {
+      "rec": "memes",
+      "score": 0.17758563187085075
+    },
+    {
+      "rec": "me_irl",
+      "score": 0.08763629551358934
+    },
+    {
+      "rec": "gaming",
+      "score": 0.04070450903212839
+    }
+  ],
+  "title": "check it take 2",
+  "body": "it really works now srsly",
+  "image": "tsrsly"
 }
 ```
 
 ### Failure Outputs
 
-# routes in progress
+- `msg`(string) ->
 
-## `DELETE /api/auth/:id`
+## `DELETE /api/auth/users`
 
 **This endpoint is restricted to logged in users.**
 
@@ -102,7 +126,7 @@ Backend Repo for Backend Engineer.
 
 - `msg`(string) ->
 
-## `PATCH /api/auth/:id`
+## `PUT /api/auth/users`
 
 **This endpoint is restricted to logged in users.**
 
