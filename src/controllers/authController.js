@@ -105,15 +105,11 @@ async function registerUser(req, res) {
 
 async function updatePassword(req, res) {
   const userID = req.decoded.subject;
-  console.log(`userID: `, userID);
-  const { password } = req.body;
-  console.log(`password: `, password);
+  let { password } = req.body;
 
   try {
-    // const currentUser = await Users.getById(userID);
-    hashedPassword = bcrypt.hashSync(password, 10);
+    const hashedPassword = bcrypt.hashSync(password, 10);
     password = hashedPassword;
-    console.log(`hashed pw: `, hashedPassword);
 
     await Users.update(userID, password);
     res.status(200).json({
