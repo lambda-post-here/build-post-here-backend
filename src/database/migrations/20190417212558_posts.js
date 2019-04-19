@@ -1,18 +1,19 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('posts', posts => {
+  return knex.schema.createTable("posts", posts => {
     posts.increments();
 
-    posts.string('title').notNullable();
-    posts.string('body');
-    posts.string('image');
+    posts.string("title").notNullable();
+    posts.string("body");
+    posts.string("image");
     posts
-      .integer('userId')
-      .references('id')
-      .inTable('users')
-      .onDelete('CASCADE')
+      .integer("userId")
+      .references("id")
+      .inTable("users")
+      .notNullable()
+      .onDelete("CASCADE")
       .index();
   });
 };
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists('posts');
+  return knex.schema.dropTableIfExists("posts");
 };
