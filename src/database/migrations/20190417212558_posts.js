@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
     posts.string("body");
     posts.string("image");
     posts
-      .integer("userId")
+      .integer("user_id")
       .references("id")
       .inTable("users")
       .notNullable()
