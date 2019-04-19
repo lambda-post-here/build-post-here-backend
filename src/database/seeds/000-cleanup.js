@@ -1,4 +1,3 @@
-const cleaner = require("knex-cleaner");
 exports.seed = function(knex) {
-  return cleaner.clean(knex);
+  return knex.schema.raw("TRUNCATE posts, users RESTART IDENTITY;");
 };
