@@ -1,3 +1,4 @@
+const { fkey } = require("../helpers/fkey");
 exports.up = function(knex, Promise) {
   return knex.schema.createTable("posts", posts => {
     posts.increments();
@@ -5,12 +6,7 @@ exports.up = function(knex, Promise) {
     posts.string("title").notNullable();
     posts.string("body");
     posts.string("image");
-    posts
-      .integer("user_id")
-      .references("id")
-      .inTable("users")
-      .notNullable()
-      .onDelete("CASCADE");
+    fkey(table, "user_id", "users");
   });
 };
 exports.down = function(knex, Promise) {
