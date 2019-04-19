@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
     posts.string("title").notNullable();
     posts.string("body");
     posts.string("image");
-    fkey(table, "user_id", "users");
+    fkey(posts, "user_id", "users");
   });
 };
 exports.down = function(knex, Promise) {
