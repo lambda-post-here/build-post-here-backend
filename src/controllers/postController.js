@@ -4,8 +4,7 @@ const Posts = require('../database/helpers/post-helpers');
 module.exports = {
   userPost
 };
-const url =
-  'http://buildweekredditpredict-env.zfm3nfznwp.us-east-1.elasticbeanstalk.com/';
+const url = 'http://testing-env.4wfmjpmztg.us-east-1.elasticbeanstalk.com/';
 
 async function userPost(req, res) {
   const newPost = req.body;
